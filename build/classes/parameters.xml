@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : parameters.xml
+    Created on : Nov 20, 2019, 8:04 PM
+    Author     : Samarth Swarup
+    Description:
+        Parameters for the project IPDSim.
+-->
+
+<IPD_network_sim-parameters>
+
+<common>
+    <dirHead>/Users/biocomplexity/Netbeans_projects/IPD_network_sim/test/expt48/</dirHead>
+</common>
+
+<Agent>
+    <strategy>WinCount</strategy> <!--AlwaysCooperate, AlwaysDefect, TitForTat, Random, 
+            TatForTit, TitForTatWithHistory, TatForTitWithHistory, MoodyConditionalCooperation,
+            AspirationLearning, AspirationLearningConstIncr, Memory2, Memory1, WinCount-->
+    
+    <CCpayoff>4</CCpayoff>
+    <CDpayoff>1</CDpayoff>
+    <DCpayoff>5</DCpayoff>
+    <DDpayoff>2</DDpayoff>
+    
+    <myHistoryLength>5</myHistoryLength> <!--Should be 2 for Memory2 model-->
+    <opponentHistoryLength>5</opponentHistoryLength> <!--Should be same as myHistoryLength for WinCount model-->
+    
+    <!--Parameters for MoodyConditionalCooperation-->
+    <minPCoopAfterC>0.5</minPCoopAfterC>
+    <maxPCoopAfterC>1.0</maxPCoopAfterC>
+    <minPCoopAfterD>0.0</minPCoopAfterD>
+    <maxPCoopAfterD>0.5</maxPCoopAfterD>
+    
+    <!--Parameters for AspirationLearning and AspirationLearningConstIncr-->
+    <initialPt>0.3</initialPt>
+    <A>1.5</A>
+    <adaptiveA>false</adaptiveA> <!--If true, A is always updated as A'=(1-h)*A + hr, where r is current reward
+                                     h is currently updated in the sequence 1/2, 1/3, 1/4, ... whenever s>0-->
+    <h>1.0</h> <!--Habituation factor for adaptiveA. Not currently used.-->
+    <decayRate>1.0</decayRate> <!--decay rate for h. Also for increments in the Memory2 model below.-->
+    <beta>0.4</beta>
+    <epsilon>0.2</epsilon> <!--Also used by WinCount model-->
+    <adaptiveEpsilon>false</adaptiveEpsilon> <!--If true, epsilon is reduced on a win and vice versa-->
+    <probIncr>0.2</probIncr> <!--Parameter only for AspirationLearningConstIncr-->
+    
+    <!--Parameters for Memory2 and Memory1-->
+    <initialPC>0.3</initialPC> <!--Initial probability of cooperation; also used by WinCount model-->
+    <PCgivenCincr>0.125</PCgivenCincr> <!--Increment to P(C|C) if opponent responds with C to subject's C-->
+    <PCgivenDincr>0.125</PCgivenDincr> <!--Increment to P(C|D) if opponent responds with C to subject's D-->
+    <!--This model also uses the parameters epsilon, adaptiveEpsilon, and decayRate from the Aspiration Learning model above.-->
+    
+    <!--Parameters for Random-->
+    <pCooperate>0.5</pCooperate>
+    
+    <!--Debug flags-->
+    <printOpponentHistory>false</printOpponentHistory>
+    <printZealotAction>false</printZealotAction>
+    <printAspirationLearningUpdateDetails>true</printAspirationLearningUpdateDetails>
+    <printMemory2UpdateDetails>true</printMemory2UpdateDetails>
+</Agent>
+
+<InteractionManager>
+    <printGeneral>true</printGeneral>
+    <printDegDistrConstrInfo>false</printDegDistrConstrInfo>
+    <printRowAndColumnForEachAgent>false</printRowAndColumnForEachAgent>
+    <printRmatLRUD>false</printRmatLRUD>
+    <printIndegreesForAllAgents>false</printIndegreesForAllAgents>
+    <printAllNormalizedIndegrees>false</printAllNormalizedIndegrees>
+    <printAgentsSortedByIndegree>false</printAgentsSortedByIndegree> <!--for debugging forceNumLoners-->
+
+    
+    <numNodes>3</numNodes> <!--overridden by languagecontact.numAgents-->
+    
+    <initialTopology>read from file</initialTopology> <!--square, fully connected, small world,
+                                                                    scale free, random,
+                                                                    scale free bidirectional, read from file-->
+			<!--If initialTopology = read from file, network is read from initialTopologyFile (see below)-->
+                       <!--if fully connected, then make sure languagecontact.saveTopologyDetails is false-->
+    <updateTopology>false</updateTopology> <!--setting this to false, or setting topologyUpdateMode to fixed,
+                                               will cause topology not to be updated.-->
+    <topologyUpdateMode>fixed</topologyUpdateMode> <!--fixed (i.e. no update), random, npa-->
+    <topologyUpdateInterval>100</topologyUpdateInterval> <!--for random and npa-->
+
+    <saveInitialTopology>true</saveInitialTopology>
+    
+    <squareWidth>20</squareWidth> <!--dimensions of square topology-->
+    <squareHeight>20</squareHeight> <!--Product should equal numNodes-->
+    
+    <numLinksToRewire>50</numLinksToRewire> <!--Starting with square topology, 
+                                                rewire these many links to make small world topology-->
+    
+    <rmatA>0.5</rmatA> <!--Parameters for the R-MAT algorithm,...-->
+    <rmatB>0.1</rmatB> <!--...which is used to generate scale-free small-world networks-->
+    <rmatC>0.1</rmatC>
+    <rmatD>0.3</rmatD>
+    <numLinks>1000</numLinks> <!--Also used for the random topology-->
+    
+    <forceNumLoners>false</forceNumLoners>
+    <numLoners>20</numLoners> <!--If forceNumLoners is true, the network will be
+                                 created to have exactly these many loners.
+                                 Only valid for scale free and random topologies, and networks read from file-->
+    
+    <mutationProb>0.3</mutationProb>  <!--This and finalMutationProb are only used in NPA mode-->
+    <finalMutationProb>0.01</finalMutationProb>
+    <maxTimeSteps>10000000</maxTimeSteps> <!--overridden by ipdsim.maxTimeSteps-->
+    
+    <networkDir>networks/</networkDir>
+    <initialTopologyFile>../IPDSim_HSE.net</initialTopologyFile>
+</InteractionManager>
+
+<ipd_network_sim>
+    <numAgents>9</numAgents>
+    <numZealots>8</numZealots> <!--These many agents are assigned the zealotStrategy-->
+    <zealotStrategy>WinCount</zealotStrategy> <!--AlwaysCooperate, AlwaysDefect, Random, 
+                TitForTat, TatForTit, TitForTatWithHistory, TatForTitWithHistory, MoodyConditionalCooperation-->
+    <zealotChoice>LowDegree</zealotChoice> <!--Random, LowDegree, HighDegree-->
+
+    <maxTimeSteps>100000</maxTimeSteps>
+    <numRuns>1</numRuns>
+    
+    <saveTopologyDetails>false</saveTopologyDetails> <!--must be false for
+                                                        InteractionManager.initialTopology = fully connected-->
+    <initState>-1</initState> <!-- -1 = random, 0 = language A, 1 = language B, etc. -->
+    <initLonersEqually>false</initLonersEqually> <!--If true, loners are initialized to be 
+                                                     equally divided between languages-->
+    
+    <timeStepsToPrint>100000</timeStepsToPrint>
+    <outputFilename>results.txt</outputFilename>
+    <actionCountsFilename>actionCounts.txt</actionCountsFilename>
+    <degreeAndFractionCFilename>degreeAndFractionC.txt</degreeAndFractionCFilename>
+    <MCCprobabilitiesFilename>MCCprobabilities.txt</MCCprobabilitiesFilename>
+    <resultsDir>./</resultsDir> 
+    
+    <!--Debug flags-->
+    <quitAfterInitialization>false</quitAfterInitialization> <!--Useful for debugging data parsing etc.-->
+    <printGeneral>true</printGeneral>
+    <printStepwiseDetails>false</printStepwiseDetails>
+    <printTimeSteps>false</printTimeSteps>
+    <printTestingSetExamples>false</printTestingSetExamples>
+    <printEvaluationDetails>false</printEvaluationDetails>
+</ipd_network_sim>
+
+</IPD_network_sim-parameters>
