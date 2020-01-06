@@ -29,7 +29,7 @@ public class Debug {
     /** Creates a new instance of Debug */
     public Debug(String parameterFile) {
         this.pr = new ParameterReader(parameterFile);
-        this.pr.setContext("ipdsim");
+        this.pr.setContext("ipd_network_sim");
         
         this.quitAfterInitialization = this.pr.getBoolean("quitAfterInitialization");
         

@@ -11,7 +11,7 @@
 <IPD_network_sim-parameters>
 
 <common>
-    <dirHead>/Users/biocomplexity/Netbeans_projects/IPD_network_sim/test/expt48/</dirHead>
+    <dirHead>../test/expt1/</dirHead>
 </common>
 
 <Agent>

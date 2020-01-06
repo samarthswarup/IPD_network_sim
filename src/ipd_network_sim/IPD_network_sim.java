@@ -45,7 +45,7 @@ public class IPD_network_sim {
     
     public IPD_network_sim(String parameterFile)
     {
-            this.debug = new Debug(parameterFile);
+        this.debug = new Debug(parameterFile);
         this.parameters = new Parameters(parameterFile);
 
         Date date = new Date();

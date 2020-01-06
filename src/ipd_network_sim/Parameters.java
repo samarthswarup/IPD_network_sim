@@ -41,7 +41,7 @@ public class Parameters {
         this.pr.setContext("common");
         this.dirHead = this.pr.getString("dirHead");
         
-        this.pr.setContext("ipdsim");
+        this.pr.setContext("ipd_network_sim");
         this.numAgents = this.pr.getInt("numAgents");
         this.numZealots = this.pr.getInt("numZealots");
         this.zealotStrategy = this.pr.getString("zealotStrategy");
