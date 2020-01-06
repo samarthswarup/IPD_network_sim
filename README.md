@@ -14,7 +14,7 @@ It takes an experiment number as its sole argument. For example:
 will create a folder named expt1/ in the test/ folder and run the code inside it. All the results
 will also be placed in the expt1/ folder.
 
-The human subject data is contained in the human_subject_data/ folder. That folder also contains
+The human subject data are contained in the human_subject_data/ folder. That folder also contains
 two python scripts. One computes the moody conditional cooperation probabilities from the human
 subject data. The other computes the same thing from simulation results. You will need to put
 in the correct filenames in the script at the top.
